@@ -1,25 +1,56 @@
 # wmss-boilerplate
 PHP project folder structure for the course Web &amp; Mobile Server-side, part of the Professional Bachelor ICT study program.
 
-## Installation instructions
+## Links
 
-* Fork this project by pressing the 'Fork' button at the top-right of this page
-* Rename the forked repo by pressing Settings > General
-* Clone the forked repo on your system e.g.
+* [Course slides](https://intern.ikdoeict.be/apps/leercentrum/courses/wmss-course-materials/)
+* [PHP Documentation](https://www.php.net/docs.php)
+* [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/)
+* [Twig 3.x documentation](https://twig.symfony.com/doc/3.x/)
+
+## Installing and developing your own project based on this boilerplate
+
+1. Fork this project by pressing the 'Fork' button at the top-right of this page
+2. Rename the forked repo by pressing Settings > General
+3. Clone the forked repo on your system e.g.
 ```shell
-git clone https://git.ikdoeict.be/john.doe/my-webshop.git
+git clone https://git.ikdoeict.be/<your-name>/<your-project>.git
 ```
-* Open the main folder with an IDE
+4. Open the main folder with an IDE (such as PhpStorm or Visual Studio Code)
+
+## Running and stopping the Docker MCE
+
 * Run the environment, using Docker, from your terminal/cmd
 ```shell
-cd my-webshop
+cd <your-project>
 docker-compose up
 ```
-* Browse to [http://localhost:8080](http://localhost:8080)
 * Stop the environment in your terminal/cmd by pressing <code>Ctrl+C</code>
 * In order to avoid conflicts with your lab/slides environment, run from your terminal/cmd
 ```shell
 docker-compose down
+```
+
+## Installing Twig and DBAL
+
+The MCE is provided with a `composer.json`/`composer.lock` file, providing the Twig and DBAL libraries
+* In order to install, run from your terminal/cmd
+```shell
+docker exec -it <webcontainer-id> bash
+$ composer install
+$ exit
+```
+
+## About the autoloader
+
+`composer.json` is configured such that the classes in "src/models/", and the files "config/database.php" and "src/functions.php" are autoloaded.
+* This means there is no need to require these classes anymore in your `public/*.php` scripts.
+* You can extend this list yourself in `composer.json`
+* When you changed this list, or you created some new classes, let composer know from your terminal/cmd:
+```shell
+docker exec -it <webcontainer-id> bash
+$ composer dump-autoload
+$ exit
 ```
 
 ## Recipes and troubleshooting
