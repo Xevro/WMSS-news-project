@@ -2,5 +2,9 @@
     "autoload": {
         "classmap": ["src/models/"],
         "files": ["config/database.php", "src/functions.php"]
+    },
+    "require": {
+        "doctrine/dbal": "^2.12",
+        "twig/twig": "^3.0"
     }
 }
