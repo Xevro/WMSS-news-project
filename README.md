@@ -12,7 +12,7 @@ PHP project folder structure for the course Web &amp; Mobile Server-side, part o
 
 ## Installing and developing your own project based on this boilerplate
 
-1. Create a new empty project on gitlab, for example my-project
+1. Create a new completely! empty project on gitlab, for example my-project
 2. Execute following commands on your system (pay attention !)
 ```shell
 mkdir my-project
