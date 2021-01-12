@@ -12,12 +12,17 @@ PHP project folder structure for the course Web &amp; Mobile Server-side, part o
 
 ## Installing and developing your own project based on this boilerplate
 
-1. Fork this project by pressing the 'Fork' button at the top-right of this page
-2. Rename the forked repo by pressing Settings > General
-3. Clone the forked repo on your system e.g.
+1. Create a new empty project on gitlab, for example my-project
+2. Execute following commands on your system (pay attention !)
 ```shell
-git clone https://git.ikdoeict.be/<your-name>/<your-project>.git
+mkdir my-project
+cd my-project
+git init
+git pull https://git.ikdoeict.be/joris.maervoet/wmss-boilerplate.git
+git remote add origin https://git.ikdoeict.be/<your-name>/my-project.git
+git push -u origin master
 ```
+3. From now on, you can stage, commit and push as usual.
 4. Open the main folder with an IDE (such as PhpStorm or Visual Studio Code)
 
 ## Running and stopping the Docker MCE
