@@ -6,7 +6,9 @@ PHP project folder structure for the course Web &amp; Mobile Server-side, part o
 * [Course slides](https://intern.ikdoeict.be/apps/leercentrum/courses/wmss-course-materials/)
 * [PHP Documentation](https://www.php.net/docs.php)
 * [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/)
+* [Doctrine DBAL 2.12 documentation](https://www.doctrine-project.org/projects/doctrine-dbal/en/2.12/index.html)
 * [Twig 3.x documentation](https://twig.symfony.com/doc/3.x/)
+* [bramus/router documentation](https://github.com/bramus/router)
 
 ## Installing and developing your own project based on this boilerplate
 
@@ -43,7 +45,7 @@ $ exit
 
 ## About the autoloader
 
-`composer.json` is configured such that the classes in "src/models/", and the files "config/database.php" and "src/functions.php" are autoloaded.
+`composer.json` is configured such that the classes in "src/" (and subfolders), and the file "config/database.php" are autoloaded.
 * This means there is no need to require these classes anymore in your `public/*.php` scripts.
 * You can extend this list yourself in `composer.json`
 * When you changed this list, or you created some new classes, let composer know from your terminal/cmd:
