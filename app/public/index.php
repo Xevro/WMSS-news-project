@@ -1,8 +1,6 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
+$router = new \Bramus\Router\Router();
 
-// Load dependencies
- 
-// Init environment (e.g. app, router, twig, ...)
- 
-// Go go go
+// add your routes and run!
