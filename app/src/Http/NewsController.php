@@ -27,7 +27,14 @@ class NewsController {
     }
 
     public function result() {
-
+        $category = isset($_GET['category'])? (int) $_GET['category']: 0;
+        $error = false;
+        if($category === 0) {
+            $error = true;
+        }
+        $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
+        echo $this->twig->render('pages/results.twig', ['articles' => $articles,'error' => $error, 'categories' => $this->categories,
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 
     public function add() {

@@ -1,0 +1,44 @@
+{% extends 'layout.twig' %}
+
+{% block pageContent %}
+    <!-- Form Errors -->
+    {% if error %}
+        <div class="box">
+            <ul style="color: #a32c28;">
+                <li>Geen zoekterm of categorie opgegeven</li>
+            </ul>
+        </div>
+    {% endif %}
+    <!-- News Section -->
+{% if articles %}
+    <section>
+        <header class="major">
+            <h2>Gevonden nieuwsberichten</h2>
+        </header>
+        <div class="posts">
+            {% for article in articles %}
+            <article>
+                <a href="#" class="image"><img src="files/newsimages/news{{ article.id }}.jpg" alt="{{ article.alt }}" /></a>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.message }}</p>
+                <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
+                <ul class="actions">
+                    <li><a href="#" class="button">Lees meer</a></li>
+                </ul>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <section>
+        <header class="major">
+            <h2>Gevonden nieuwsberichten</h2>
+        </header>
+        <div class="posts">
+            <article>
+                <p>Geen nieuwsberichten gevonden</p>
+            </article>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}
