@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Nerdnews - Overzicht</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><strong>Nerdnews</strong> by Odisee</a>
+                <ul class="icons">
+                    <li><a href="https://twitter.com/ikdoeict" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="https://www.facebook.com/ikdoeict" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                </ul>
+            </header>
+            {% block pageContent %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+
+            <!-- Search -->
+            <section id="search" class="alt">
+                <form action="results.php" method="get" id="search" class="input-group">
+                    <input type="text" name="search" id="search" placeholder="Zoeken" value="" onclick="this.value=''" />
+                </form>
+            </section>
+
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="index.php">Homepage</a></li>
+                    <li><a href="results.php?category=1">Gadgets</a></li>
+                    <li><a href="results.php?category=2">Media</a></li>
+                    <li><a href="results.php?category=3">Cultuur</a></li>
+                    <li><a href="results.php?category=4">Geschiedenis</a></li>
+                    <li><a href="results.php?category=5">Economie</a></li>
+                </ul>
+            </nav>
+
+            <!-- Account -->
+            <section>
+                <header class="major">
+                    <h2>Mijn account</h2>
+                </header>
+                <p>Toevoegen van nieuwsberichten op deze website is volledig gesteund op het vrijwilligers principe. Aanmelden laat toe berichten te publiceren onder een categorie van interesse.</p>
+
+                <ul class="contact">
+                    <li class="fa-user"><a href="logout" class="button special fit small">Afmelden</a></li>
+                    <li class="fa-newspaper-o"><a href="add.php">Nieuwsbericht toevoegen</a></li>
+                </ul>
+            </section>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; ikdoeict -  Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]><script src="/js/ie/respond.min.js"></script><![endif]-->
+<script src="/js/main.js"></script>
+
+</body>
+</html>
