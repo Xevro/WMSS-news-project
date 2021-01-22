@@ -1,0 +1,25 @@
+{% extends 'layout.twig' %}
+
+{% block pageContent %}
+    <!-- News Section -->
+    {% if article %}
+        <section>
+            <header class="major">
+                <h2>{{ article.title }}</h2>
+            </header>
+            <div class="posts">
+                    <article>
+                        <a href="#" class="image"><img src="/files/newsimages/news{{ article.id }}.jpg" alt="{{ article.alt }}" /></a>
+                        <p>{{ article.message }}</p>
+                        <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
+                    </article>
+            </div>
+        </section>
+    {% else %}
+        <div class="box">
+            <ul style="color: #a32c28;">
+                <li>Geen artikel gevonden</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

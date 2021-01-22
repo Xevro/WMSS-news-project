@@ -13,7 +13,7 @@ $router->before('GET|POST', '/.*', function () {
 $router->get('/', 'NewsController@home');
 $router->get('/results', 'NewsController@results');
 $router->get('/articles/(\d+)', 'NewsController@showArticle');
-$router->get('/articles/add', 'NewsController@add');
+$router->get('/articles/add', 'NewsController@showAdd');
 $router->post('/articles/add', 'NewsController@add');
 
 $router->get('/login', 'AuthController@showLogin');

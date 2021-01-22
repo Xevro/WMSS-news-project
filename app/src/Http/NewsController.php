@@ -20,8 +20,8 @@ class NewsController {
     }
 
     public function home() {
-        $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY popularity DESC LIMIT 3;', []);
-        $latestArticle = $this->db->fetchAssociative('SELECT n.id, n.title,LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY `pubdate` DESC LIMIT 1;', []);
+        $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY popularity DESC LIMIT 3;', []);
+        $latestArticle = $this->db->fetchAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY `pubdate` DESC LIMIT 1;', []);
         echo $this->twig->render('pages/home.twig', ['articles' => $articles, 'latest' => $latestArticle, 'categories' => $this->categories,
             'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
@@ -32,18 +32,36 @@ class NewsController {
         if ($category === 0) {
             $error = true;
         }
-        $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
+        $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
         echo $this->twig->render('pages/results.twig', ['articles' => $articles, 'error' => $error, 'categories' => $this->categories,
             'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 
     public function showArticle($articleId) {
         $articlesIncremented = isset($_SESSION['articles']) ? $_SESSION['articles'] : [];
-        if (isset($_SESSION['user']) && !in_array($articleId, $articlesIncremented)) {
+        if (!in_array($articleId, $articlesIncremented)) {
             $stmt = $this->db->prepare('UPDATE newsmessages SET popularity = popularity + 1 WHERE id = ?');
             $stmt->execute([$articleId]);
             $_SESSION['articles'][$articleId] = $articleId;
         }
+        $article = $this->db->fetchAssociative('SELECT n.id, n.title, n.message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.id = ?', [$articleId]);
+
+        echo $this->twig->render('pages/article.twig', ['article' => $article, 'categories' => $this->categories,
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+    }
+
+    public function showAdd() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit();
+        }
+        $title = isset($_POST['title']) ? (string)$_POST['title'] : '';
+        $message = isset($_POST['message']) ? (string)$_POST['message'] : '';
+        $alt = isset($_POST['alt']) ? (string)$_POST['alt'] : '';
+        $category = isset($_POST['category']) ? (int)$_POST['category'] : 0;
+
+        echo $this->twig->render('pages/add.twig', ['title' => $title, 'alt' => $alt, 'message' => $message, 'selectedCategoryId' => $category, 'categories' => $this->categories, 'errors' => [],
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 
     public function add() {
@@ -103,9 +121,10 @@ class NewsController {
         header('Content-type: application/xml');
         print_r('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ');
         print_r('xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">');
-        foreach ($this->categories as $category)
+        foreach ($this->categories as $category) {
             print_r('<url> <loc>https://nerdnews.be/articles/' . $category['id'] . '</loc>
                         <changefreq>daily</changefreq> </url>');
+        }
         print_r('</urlset>');
     }
 }

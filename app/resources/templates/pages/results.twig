@@ -18,7 +18,7 @@
         <div class="posts">
             {% for article in articles %}
             <article>
-                <a href="#" class="image"><img src="files/newsimages/news{{ article.id }}.jpg" alt="{{ article.alt }}" /></a>
+                <a href="#" class="image"><img src="/files/newsimages/news{{ article.id }}.jpg" alt="{{ article.alt }}" /></a>
                 <h3>{{ article.title }}</h3>
                 <p>{{ article.message }}</p>
                 <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
