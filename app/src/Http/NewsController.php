@@ -22,8 +22,7 @@ class NewsController {
     public function home() {
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY popularity DESC LIMIT 3;', []);
         $latestArticle = $this->db->fetchAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY `pubdate` DESC LIMIT 1;', []);
-        echo $this->twig->render('pages/home.twig', ['articles' => $articles, 'latest' => $latestArticle, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Nerdnews - Overzicht']);
+        echo $this->twig->render('pages/home.twig', ['articles' => $articles, 'latest' => $latestArticle, 'categories' => $this->categories, 'pagetitle' => 'Nerdnews - Overzicht']);
     }
 
     public function results() {
@@ -33,8 +32,7 @@ class NewsController {
             $error = true;
         }
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
-        echo $this->twig->render('pages/results.twig', ['articles' => $articles, 'error' => $error, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Results']);
+        echo $this->twig->render('pages/results.twig', ['articles' => $articles, 'error' => $error, 'categories' => $this->categories, 'pagetitle' => 'Results']);
     }
 
     public function showArticle($articleId) {
@@ -46,8 +44,7 @@ class NewsController {
         }
         $article = $this->db->fetchAssociative('SELECT n.id, n.title, n.message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.id = ?', [$articleId]);
 
-        echo $this->twig->render('pages/article.twig', ['article' => $article, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Artikel informatie']);
+        echo $this->twig->render('pages/article.twig', ['article' => $article, 'categories' => $this->categories, 'pagetitle' => 'Artikel informatie']);
     }
 
     public function showAdd() {
