@@ -27,7 +27,7 @@ class AuthController {
         $email = isset($_SESSION['flash']['email']) ? $_SESSION['flash']['email'] : '';
         unset($_SESSION['flash']);
 
-        echo $this->twig->render('pages/login.twig', ['email' => $email, 'error' => $formError, 'user' => [], 'categories' => $this->categories]);
+        echo $this->twig->render('pages/login.twig', ['email' => $email, 'error' => $formError, 'user' => [], 'categories' => $this->categories, 'pagetitle' => 'Login']);
     }
 
     public function login() {

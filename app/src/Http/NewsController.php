@@ -23,7 +23,7 @@ class NewsController {
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY popularity DESC LIMIT 3;', []);
         $latestArticle = $this->db->fetchAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY `pubdate` DESC LIMIT 1;', []);
         echo $this->twig->render('pages/home.twig', ['articles' => $articles, 'latest' => $latestArticle, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Nerdnews - Overzicht']);
     }
 
     public function results() {
@@ -34,7 +34,7 @@ class NewsController {
         }
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
         echo $this->twig->render('pages/results.twig', ['articles' => $articles, 'error' => $error, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Results']);
     }
 
     public function showArticle($articleId) {
@@ -47,7 +47,7 @@ class NewsController {
         $article = $this->db->fetchAssociative('SELECT n.id, n.title, n.message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM newsmessages as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.id = ?', [$articleId]);
 
         echo $this->twig->render('pages/article.twig', ['article' => $article, 'categories' => $this->categories,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Artikel informatie']);
     }
 
     public function showAdd() {
@@ -61,7 +61,7 @@ class NewsController {
         $category = isset($_POST['category']) ? (int)$_POST['category'] : 0;
 
         echo $this->twig->render('pages/add.twig', ['title' => $title, 'alt' => $alt, 'message' => $message, 'selectedCategoryId' => $category, 'categories' => $this->categories, 'errors' => [],
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Voeg een artikel toe']);
     }
 
     public function add() {
@@ -114,7 +114,7 @@ class NewsController {
             }
         }
         echo $this->twig->render('pages/add.twig', ['title' => $title, 'alt' => $alt, 'message' => $message, 'selectedCategoryId' => $category, 'categories' => $this->categories, 'errors' => $errors,
-            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : [], 'pagetitle' => 'Voeg een artikel toe']);
     }
 
     public function generateSitemap() {
