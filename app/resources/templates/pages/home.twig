@@ -5,18 +5,16 @@
     <section id="banner">
         <div class="content">
             <header>
-                <h1>Sonos werkt aan eerste bluetooth luidspreker</h1>
-                <p>Gepost op <b>12-08-2019</b> door <a href="#">Pierke</a></p>
+                <h1>{{ latest.title }}</h1>
+                <p>Gepost op <b>{{ latest.pubdate }}</b> door <a href="#">{{ latest.author }}</a></p>
             </header>
-            <p>Sonos werkt aan een bluetoothspeaker, zo schrijft The Verge op basis van documenten. De nieuwe bluetooth speaker zou in de herfst van dit jaar verschijnen.
-
-                De documenten beschrijven een nieuwe hoogwaardige draadloze speaker met een primaire onder...</p>
+            <p>{{ latest.message }}</p>
             <ul class="actions">
                 <li><a href="/oneup.php?news=3" class="button big">Lees meer</a></li>
             </ul>
         </div>
         <span class="image object">
-			<img src="/files/newsimages/news3.jpg" alt="Sonos luidspreker" />
+			<img src="/files/newsimages/news{{ latest.id }}.jpg" alt="{{ latest.alt }}" />
 		</span>
     </section>
     <!-- News Section -->
@@ -26,37 +24,18 @@
         </header>
         <div class="posts">
 
+            {% for article in articles %}
+
             <article>
-                <a href="#" class="image"><img src="files/newsimages/news2.jpg" alt="Postbus Bpost" /></a>
-                <h3>Bpost gaat 200 informaticajobs uitbesteden naar India</h3>
-                <p>Bpost gaat het contract beëindigen van ongeveer 200 informatici van externe Belgische bedrijven en hun taken verhuizen naar India. Dat blijkt uit een ...</p>
-                <p>Gepost op <b>18-07-2019</b> door <a href="#">Joris</a></p>
+                <a href="#" class="image"><img src="files/newsimages/news{{ article.id }}.jpg" alt="{{ article.alt }}" /></a>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.message }}</p>
+                <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
                 <ul class="actions">
                     <li><a href="oneup.php?news=2" class="button">Lees meer</a></li>
                 </ul>
             </article>
-            <article>
-                <a href="#" class="image"><img src="files/newsimages/news1.jpg" alt="David Bowie in concert" /></a>
-                <h3>David Bowie en Leonard Cohen postuum genomineerd voor Brit Awards</h3>
-                <p>De vorig jaar overleden muzikanten David Bowie en Leonard Cohen werden genomineerd voor de Brit Awards, die binnen een maand uitgereikt worden.
-                    AP
-                    D...</p>
-                <p>Gepost op <b>16-07-2019</b> door <a href="#">Pieter</a></p>
-                <ul class="actions">
-                    <li><a href="oneup.php?news=1" class="button">Lees meer</a></li>
-                </ul>
-            </article>
-            <article>
-                <a href="#" class="image"><img src="files/newsimages/news3.jpg" alt="Sonos luidspreker" /></a>
-                <h3>Sonos werkt aan eerste bluetooth luidspreker</h3>
-                <p>Sonos werkt aan een bluetoothspeaker, zo schrijft The Verge op basis van documenten. De nieuwe bluetooth speaker zou in de herfst van dit jaar verschi...</p>
-                <p>Gepost op <b>12-08-2019</b> door <a href="#">Pierke</a></p>
-                <ul class="actions">
-                    <li><a href="oneup.php?news=3" class="button">Lees meer</a></li>
-                </ul>
-            </article>
-
-
+            {% endfor %}
         </div>
     </section>
 {% endblock %}
