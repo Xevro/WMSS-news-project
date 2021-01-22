@@ -23,19 +23,20 @@ class NewsController {
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY popularity DESC LIMIT 3;', []);
         $latestArticle = $this->db->fetchAssociative('SELECT n.id, n.title,LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id ORDER BY `pubdate` DESC LIMIT 1;', []);
         echo $this->twig->render('pages/home.twig', ['articles' => $articles, 'latest' => $latestArticle, 'categories' => $this->categories,
-        'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 
     public function results() {
-        $category = isset($_GET['category'])? (int) $_GET['category']: 0;
+        $category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
         $error = false;
-        if($category === 0) {
+        if ($category === 0) {
             $error = true;
         }
         $articles = $this->db->fetchAllAssociative('SELECT n.id, n.title, LEFT(n.message, 250) as message, n.pubdate, n.alt, n.popularity, a.firstname as author FROM `newsmessages` as n LEFT JOIN authors as a on n.author_id = a.id WHERE n.category_id = ? ORDER BY popularity DESC;', [$category]);
-        echo $this->twig->render('pages/results.twig', ['articles' => $articles,'error' => $error, 'categories' => $this->categories,
+        echo $this->twig->render('pages/results.twig', ['articles' => $articles, 'error' => $error, 'categories' => $this->categories,
             'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
+
     public function showArticle($articleId) {
         $articlesIncremented = isset($_SESSION['articles']) ? $_SESSION['articles'] : [];
         if (isset($_SESSION['user']) && !in_array($articleId, $articlesIncremented)) {
@@ -99,7 +100,12 @@ class NewsController {
     }
 
     public function generateSitemap() {
-        Header();
-        echo "qsd";
+        header('Content-type: application/xml');
+        print_r('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ');
+        print_r('xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">');
+        foreach ($this->categories as $category)
+            print_r('<url> <loc>https://nerdnews.be/articles/' . $category['id'] . '</loc>
+                        <changefreq>daily</changefreq> </url>');
+        print_r('</urlset>');
     }
 }

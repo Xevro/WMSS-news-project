@@ -20,5 +20,7 @@ $router->get('/login', 'AuthController@showLogin');
 $router->post('/login', 'AuthController@login');
 $router->get('/logout', 'AuthController@logout');
 
+$router->get('/sitemap.xml', 'NewsController@generateSitemap');
+
 // Run it!
 $router->run();
