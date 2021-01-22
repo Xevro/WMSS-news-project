@@ -48,7 +48,7 @@
                     <h2>Menu</h2>
                 </header>
                 <ul>
-                    <li><a href="index.php">Homepage</a></li>
+                    <li><a href="/">Homepage</a></li>
                     {% for category in categories %}
                     <li><a href="/results?category={{ category.id }}">{{ category.name }}</a></li>
                     {% endfor %}
@@ -63,8 +63,12 @@
                 <p>Toevoegen van nieuwsberichten op deze website is volledig gesteund op het vrijwilligers principe. Aanmelden laat toe berichten te publiceren onder een categorie van interesse.</p>
 
                 <ul class="contact">
-                    <li class="fa-user"><a href="logout" class="button special fit small">Afmelden</a></li>
-                    <li class="fa-newspaper-o"><a href="add.php">Nieuwsbericht toevoegen</a></li>
+                    {% if user %}
+                    <li class="fa-user"><a href="/logout" class="button special fit small">Afmelden</a></li>
+                    {% else %}
+                    <li class="fa-user"><a href="/login" class="button special fit small">Aanmelden</a></li>
+                    {% endif %}
+                    <li class="fa-newspaper-o"><a href="/add">Nieuwsbericht toevoegen</a></li>
                 </ul>
             </section>
 

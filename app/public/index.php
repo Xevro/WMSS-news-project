@@ -18,7 +18,7 @@ $router->post('/articles/add', 'NewsController@add');
 
 $router->get('/login', 'AuthController@showLogin');
 $router->post('/login', 'AuthController@login');
-$router->post('/logout', 'AuthController@logout');
+$router->get('/logout', 'AuthController@logout');
 
 // Run it!
 $router->run();
