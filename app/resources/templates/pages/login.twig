@@ -5,13 +5,13 @@
     <section>
         <div class="6u$ 12u$(medium)">
             <h3>Inloggen</h3>
+            {% if error %}
             <div class="box">
                 <ul style="color: #a32c28;">
-                    {% if error %}
                     <li>{{ error }}</li>
-                    {% endif %}
                 </ul>
             </div>
+            {% endif %}
             <form method="post" action="/login">
                 <div class="row uniform">
                     <div class="6u 12u$(xsmall)">
