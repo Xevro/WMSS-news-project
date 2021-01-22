@@ -10,7 +10,7 @@
             </header>
             <p>{{ latest.message }}</p>
             <ul class="actions">
-                <li><a href="/oneup.php?news=3" class="button big">Lees meer</a></li>
+                <li><a href="/articles/{{ latest.id }}" class="button big">Lees meer</a></li>
             </ul>
         </div>
         <span class="image object">
@@ -32,7 +32,7 @@
                 <p>{{ article.message }}</p>
                 <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
                 <ul class="actions">
-                    <li><a href="oneup.php?news=2" class="button">Lees meer</a></li>
+                    <li><a href="/articles/{{ article.id }}" class="button">Lees meer</a></li>
                 </ul>
             </article>
             {% endfor %}

@@ -23,7 +23,7 @@
                 <p>{{ article.message }}</p>
                 <p>Gepost op <b>{{ article.pubdate }}</b> door <a href="#">{{ article.author }}</a></p>
                 <ul class="actions">
-                    <li><a href="#" class="button">Lees meer</a></li>
+                    <li><a href="/articles/{{ article.id }}" class="button">Lees meer</a></li>
                 </ul>
             </article>
             {% endfor %}
