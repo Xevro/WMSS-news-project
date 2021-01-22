@@ -2,6 +2,7 @@
 
 namespace Http;
 
+use DateTime;
 use Services\DatabaseConnector;
 
 class NewsController {
@@ -25,10 +26,60 @@ class NewsController {
         'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 
+    public function result() {
+
+    }
+
     public function add() {
         if (!isset($_SESSION['user'])) {
             header('Location: /login');
             exit();
         }
+        $title = isset($_POST['title']) ? (string)$_POST['title'] : '';
+        $message = isset($_POST['message']) ? (string)$_POST['message'] : '';
+        $alt = isset($_POST['alt']) ? (string)$_POST['alt'] : '';
+        $category = isset($_POST['category']) ? (int)$_POST['category'] : 0;
+        $errors = [];
+
+        if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
+            $allOk = true;
+            if ($title === '' || $message === '') {
+                $errors[] = 'Gelieve een nieuwsbericht in te voeren';
+                $allOk = false;
+            }
+            if ($category == 0) {
+                $errors[] = 'Gelieve een geldige categorie te selecteren';
+                $allOk = false;
+            }
+            if ($alt == '') {
+                $errors[] = 'Gelieve een alt voor de foto op te geven';
+                $allOk = false;
+            }
+            $lastId = $this->db->fetchAssociative('SELECT id FROM newsmessages WHERE id = (SELECT MAX(id) FROM newsmessages)', []);
+
+            $fileTmpName = $_FILES['photo']['tmp_name'];
+            $array = explode('.', $_FILES['photo']['name']);
+            $fileExtension = strtolower(end($array));
+            $imageDirectory = "/files/newsimages/news" . ($lastId['id'] + 1) . '.' . $fileExtension;
+            $uploadDirectory = getcwd() . $imageDirectory;
+            $fileExtensionsAllowed = ['jpg'];
+
+            // Enkel een bepaald formaat toestaan
+            if (!in_array($fileExtension, $fileExtensionsAllowed)) {
+                $errors['file'] = "Gelieve een foto up te loaden, enkel .JPG toegestaan";
+                $allOk = false;
+            }
+
+            if ($allOk) {
+                if (move_uploaded_file($fileTmpName, $uploadDirectory)) {
+                    $stmt = $this->db->prepare('INSERT INTO newsmessages(title, message, alt, pubdate, category_id, author_id, popularity) VALUES (?,?,?,?,?,?,?)');
+                    $stmt->execute([$title, $message, $alt, (new DateTime())->format('Y-m-d H:i:s'), $category, $_SESSION['user']['id'], 0]);
+                    header('Location: /');
+                    exit();
+                }
+            }
+        }
+        echo $this->twig->render('pages/add.twig', ['title' => $title, 'alt' => $alt, 'message' => $message, 'selectedCategoryId' => $category, 'categories' => $this->categories, 'errors' => $errors,
+            'user' => isset($_SESSION['user']) ? $_SESSION['user'] : []]);
     }
 }

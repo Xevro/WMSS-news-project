@@ -1,0 +1,56 @@
+{% extends 'layout.twig' %}
+
+{% block pageContent %}
+    <!-- Form Errors -->
+    {% if errors %}
+    <div class="box">
+        <ul style="color: #a32c28;">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <!-- Add news Section -->
+    <section>
+        <div class="6u$ 12u$(medium)">
+            <h3>Artikel toevoegen</h3>
+            <form method="post" action="/articles/add" role="form" enctype="multipart/form-data">
+                <div class="row uniform">
+                    <div class="12u$">
+                        <input type="text" name="title" id="title" value="{{ title }}" placeholder="title van het artikel" />
+                    </div>
+                    <div class="12u$">
+                        <textarea name="message" id="message" rows="6" placeholder="inhoud van het nieuwsbericht">{{ message }}</textarea>
+                    </div>
+                    <div class="12u$">
+                        <div class="select-wrapper">
+                            <select name="category" id="category">
+                                <option value="">Selecteer een categorie</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}"{% if category.id == selectedCategoryId %}selected{% endif %}>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="12u$">
+                        Kies een .jpg-bestand: &nbsp;&nbsp;
+                        <input type="file" name="photo" id="photo" value="" autocomplete="off" placeholder="Selecteer foto" />
+                    </div>
+                    <div class="12u$">
+                        <input type="text" name="alt" id="alt" value="{{ alt }}" placeholder="alt attribuut van de foto" />
+                    </div>
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li>
+                                <input type="hidden" name="moduleAction" value="add" />
+                                <input type="submit" value="Toevoegen" class="special small" />
+                                <a href="/">Annuleer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

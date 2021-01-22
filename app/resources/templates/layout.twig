@@ -64,11 +64,11 @@
 
                 <ul class="contact">
                     {% if user %}
-                    <li class="fa-user"><a href="/logout" class="button special fit small">Afmelden</a></li>
+                        <li class="fa-user"><a href="/logout" class="button special fit small">Afmelden</a></li>
+                        <li class="fa-newspaper-o"><a href="/articles/add">Nieuwsbericht toevoegen</a></li>
                     {% else %}
                     <li class="fa-user"><a href="/login" class="button special fit small">Aanmelden</a></li>
                     {% endif %}
-                    <li class="fa-newspaper-o"><a href="/add">Nieuwsbericht toevoegen</a></li>
                 </ul>
             </section>
 
